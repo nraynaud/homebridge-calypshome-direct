@@ -82,6 +82,9 @@ export async function postData(url, payload = '', logger?: Logger) {
     logger.warn('postData', url, payload);
   }
   return new Promise<string>((resolve, reject) => {
+    if (logger) {
+      logger.warn('postData2', url, payload, Buffer.byteLength(payload));
+    }
     const req = http.request(url, {
       'headers': {
         'accept': 'application/json, text/plain, */*',
@@ -101,7 +104,7 @@ export async function postData(url, payload = '', logger?: Logger) {
       res.on('error', reject);
     });
     if (logger) {
-      logger.debug('postData url, payload', url, payload, Buffer.byteLength(payload));
+      logger.debug('postData3 url, payload', url, payload, Buffer.byteLength(payload));
     }
     req.write(payload, e => {
       if (e) {
