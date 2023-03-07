@@ -51,7 +51,7 @@ export class CalypshomeDirect implements DynamicPlatformPlugin {
    * must not be registered again to prevent "duplicate UUID" errors.
    */
   discoverDevices() {
-    getObjects(`${this.config.url}/m?a=getObjects`).then(objects => {
+    getObjects(`${this.config.url}/m?a=getObjects`, this.log).then(objects => {
       for (const obj of objects.filter(o => o.type === 'Rolling_Shutter')) {
         const uuid = this.api.hap.uuid.generate(obj.id);
         const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
@@ -114,7 +114,6 @@ export async function postData(url, payload = '', logger?: Logger) {
 }
 
 async function getObjects(url, logger?: Logger): Promise<[ProfaluxObject]> {
-
   try {
     return JSON.parse(await postData(new URL(url), '')).objects;
   } catch (e) {
