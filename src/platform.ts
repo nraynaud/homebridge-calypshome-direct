@@ -127,6 +127,12 @@ export async function postData(url, payload = '', logger?: Logger) {
         req.end();
       }
     });
+    req.on('error', e => {
+      if (logger) {
+        logger.warn('req form error', e);
+      }
+      reject(e);
+    });
   });
 }
 
