@@ -1,7 +1,6 @@
 import {Service, PlatformAccessory, CharacteristicValue} from 'homebridge';
 
-import {CalypshomeDirect} from './platform';
-import http from 'http';
+import {CalypshomeDirect, postData} from './platform';
 
 export class ShutterAccessory {
   private service: Service;
@@ -40,37 +39,8 @@ export class ShutterAccessory {
 
   async sendCommand(url, objectId, command, logger, args?:Record<string, string>) {
     logger.info('sending', command, args);
-    return new Promise((resolve, reject) => {
-      const argFragment = args ? 'args=' + encodeURIComponent(JSON.stringify(args)) + '&' : '';
-      const payload = `action=${command}&${argFragment}id=${objectId}`;
-      const req = http.request(new URL(`${url}/m?a=command`), {
-        'headers': {
-          'accept': 'application/json, text/plain, */*',
-          'content-type': 'application/x-www-form-urlencoded',
-          'Content-Length': Buffer.byteLength(payload),
-        },
-        'method': 'POST',
-        'timeout': 3000,
-      }, (res) => {
-        let data = '';
-        res.on('data', (chunk) => {
-          data += chunk;
-        });
-        res.on('end', () => {
-          resolve(data);
-        });
-        res.on('error', reject);
-      });
-      req.on('error', (err) => {
-        logger.info('err', err);
-        reject(err);
-      });
-      req.write(payload, (e) => {
-        if (e) {
-          logger.info('e', e);
-        }
-        req.end();
-      });
-    });
+    const argFragment = args ? 'args=' + encodeURIComponent(JSON.stringify(args)) + '&' : '';
+    const payload = `action=${command}&${argFragment}id=${objectId}`;
+    return postData(new URL(`${url}/m?a=command`), payload);
   }
 }

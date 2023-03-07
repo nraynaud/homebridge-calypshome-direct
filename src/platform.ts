@@ -51,11 +51,8 @@ export class CalypshomeDirect implements DynamicPlatformPlugin {
    * must not be registered again to prevent "duplicate UUID" errors.
    */
   discoverDevices() {
-    getObjects(`${this.config.url}/m?a=getObjects`, this.log).then(objects => {
+    getObjects(`${this.config.url}/m?a=getObjects`).then(objects => {
       for (const obj of objects.filter(o => o.type === 'Rolling_Shutter')) {
-        if (obj.name === 'Salon fenêtre') {
-          this.log.info('obj', obj);
-        }
         const uuid = this.api.hap.uuid.generate(obj.id);
         const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
         if (existingAccessory) {
@@ -80,27 +77,36 @@ interface ProfaluxObject {
   type: string;
 }
 
-async function getObjects(url, logger) {
-  return new Promise<[ProfaluxObject]>((resolve, reject) => {
-    const req = http.request(new URL(url), {
+export async function postData(url, payload = '') {
+  return new Promise<string>((resolve, reject) => {
+    const req = http.request(url, {
       'headers': {
         'accept': 'application/json, text/plain, */*',
         'content-type': 'application/x-www-form-urlencoded',
-        'Content-Length': 0,
+        'Content-Length': Buffer.byteLength(payload),
       },
       'method': 'POST',
       'timeout': 3000,
     }, (res) => {
       let data = '';
       res.on('data', (chunk) => {
-        logger.info('chunk');
         data += chunk;
       });
       res.on('end', () => {
-        resolve(JSON.parse(data).objects);
+        resolve(data);
       });
       res.on('error', reject);
     });
-    req.end();
+    req.write(payload, e => {
+      if (e) {
+        reject(e);
+      } else {
+        req.end();
+      }
+    });
   });
+}
+
+async function getObjects(url): Promise<[ProfaluxObject]> {
+  return JSON.parse((await postData(new URL(url), ''))).objects;
 }
