@@ -87,7 +87,6 @@ export async function postData(url, payload = '', logger?: Logger) {
         reject(e);
       });
     });
-    req.setSocketKeepAlive(false);
     req.on('error', e => {
       if (logger) {
         // logging the error explicitly logs the underlying C errno, just raising the exception doesn't
