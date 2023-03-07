@@ -113,7 +113,7 @@ export async function postData(url, payload = '', logger?: Logger) {
     });
     if (logger) {
       logger.debug('postData3 url, payload', url, payload, Buffer.byteLength(payload));
-      logger.debug('req ',req);
+      logger.debug('req ', req);
     }
     req.on('error', e => {
       if (logger) {
