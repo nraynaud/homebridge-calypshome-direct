@@ -85,7 +85,11 @@ export async function postData(url, payload = '', logger?: Logger) {
     if (logger) {
       logger.warn('postData2', url, payload, Buffer.byteLength(payload));
     }
+    const agent = new http.Agent({
+      keepAlive: true,
+    });
     const req = http.request(url, {
+      agent: agent,
       'headers': {
         'accept': 'application/json, text/plain, */*',
         'content-type': 'application/x-www-form-urlencoded',
@@ -111,6 +115,7 @@ export async function postData(url, payload = '', logger?: Logger) {
         reject(e);
       });
     });
+    req.setSocketKeepAlive(false);
     if (logger) {
       logger.debug('postData3 url, payload', url, payload, Buffer.byteLength(payload));
       logger.debug('req ', req);
@@ -122,7 +127,10 @@ export async function postData(url, payload = '', logger?: Logger) {
       }
       reject(e);
     });
-    req.end(payload);
+    if(payload) {
+      req.write(payload);
+    }
+    req.end();
   });
 }
 
