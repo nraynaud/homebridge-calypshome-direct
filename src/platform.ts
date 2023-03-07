@@ -120,20 +120,7 @@ export async function postData(url, payload = '', logger?: Logger) {
       }
       reject(e);
     });
-    req.write(payload, e => {
-      if (e) {
-        if (logger) {
-          logger.warn('form error', e);
-        }
-        reject(e);
-      } else {
-        if (logger) {
-          logger.warn('req.end()');
-        }
-
-      }
-    });
-    req.end();
+    req.end(payload, 'utf8');
   });
 }
 
