@@ -92,7 +92,7 @@ export async function postData(url, payload = '', logger?: Logger) {
         'Content-Length': Buffer.byteLength(payload),
       },
       'method': 'POST',
-      'timeout': 3000,
+      'timeout': 30000,
     }, (res) => {
       let data = '';
       res.on('data', (chunk) => {
@@ -113,6 +113,7 @@ export async function postData(url, payload = '', logger?: Logger) {
     });
     if (logger) {
       logger.debug('postData3 url, payload', url, payload, Buffer.byteLength(payload));
+      logger.debug('req ',req);
     }
     req.on('error', e => {
       if (logger) {
@@ -120,7 +121,7 @@ export async function postData(url, payload = '', logger?: Logger) {
       }
       reject(e);
     });
-    req.end(payload, 'utf8');
+    req.end(payload);
   });
 }
 
