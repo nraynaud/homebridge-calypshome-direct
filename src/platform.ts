@@ -77,7 +77,7 @@ interface ProfaluxObject {
   type: string;
 }
 
-export async function postData(url, payload = '') {
+export async function postData(url, payload = '', logger?: Logger) {
   return new Promise<string>((resolve, reject) => {
     const req = http.request(url, {
       'headers': {
@@ -99,6 +99,9 @@ export async function postData(url, payload = '') {
     });
     req.write(payload, e => {
       if (e) {
+        if (logger) {
+          logger.error('form error', e);
+        }
         reject(e);
       } else {
         req.end();
