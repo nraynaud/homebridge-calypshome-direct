@@ -78,6 +78,9 @@ interface ProfaluxObject {
 }
 
 export async function postData(url, payload = '', logger?: Logger) {
+  if (logger) {
+    logger.warn('postData', url, payload);
+  }
   return new Promise<string>((resolve, reject) => {
     const req = http.request(url, {
       'headers': {
