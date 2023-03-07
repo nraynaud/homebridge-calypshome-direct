@@ -86,6 +86,7 @@ async function getObjects(url, logger) {
       'headers': {
         'accept': 'application/json, text/plain, */*',
         'content-type': 'application/x-www-form-urlencoded',
+        'Content-Length': 0,
       },
       'method': 'POST',
       'timeout': 3000,
