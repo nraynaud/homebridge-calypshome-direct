@@ -114,6 +114,12 @@ export async function postData(url, payload = '', logger?: Logger) {
     if (logger) {
       logger.debug('postData3 url, payload', url, payload, Buffer.byteLength(payload));
     }
+    req.on('error', e => {
+      if (logger) {
+        logger.warn('req form error', e);
+      }
+      reject(e);
+    });
     req.write(payload, e => {
       if (e) {
         if (logger) {
@@ -124,15 +130,10 @@ export async function postData(url, payload = '', logger?: Logger) {
         if (logger) {
           logger.warn('req.end()');
         }
-        req.end();
+
       }
     });
-    req.on('error', e => {
-      if (logger) {
-        logger.warn('req form error', e);
-      }
-      reject(e);
-    });
+    req.end();
   });
 }
 
