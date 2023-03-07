@@ -106,7 +106,7 @@ export async function postData(url, payload = '', logger?: Logger) {
       });
       res.on('error', e => {
         if (logger) {
-          logger.error('form error', e);
+          logger.warn('form error', e);
         }
         reject(e);
       });
@@ -117,7 +117,7 @@ export async function postData(url, payload = '', logger?: Logger) {
     req.write(payload, e => {
       if (e) {
         if (logger) {
-          logger.error('form error', e);
+          logger.warn('form error', e);
         }
         reject(e);
       } else {
