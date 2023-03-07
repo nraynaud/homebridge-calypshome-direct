@@ -114,8 +114,11 @@ export async function postData(url, payload = '', logger?: Logger) {
 }
 
 async function getObjects(url, logger?: Logger): Promise<[ProfaluxObject]> {
+  if (logger) {
+    logger.debug('getObjects url', url);
+  }
   try {
-    return JSON.parse(await postData(new URL(url), '')).objects;
+    return JSON.parse(await postData(new URL(url), '', logger)).objects;
   } catch (e) {
     if (logger) {
       logger.error('getObjects error', e);
