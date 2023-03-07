@@ -100,6 +100,9 @@ export async function postData(url, payload = '', logger?: Logger) {
       });
       res.on('error', reject);
     });
+    if (logger) {
+      logger.debug('postData url, payload', url, payload, Buffer.byteLength(payload));
+    }
     req.write(payload, e => {
       if (e) {
         if (logger) {
