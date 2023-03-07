@@ -99,9 +99,17 @@ export async function postData(url, payload = '', logger?: Logger) {
         data += chunk;
       });
       res.on('end', () => {
+        if (logger) {
+          logger.debug('postData4 resolve', data);
+        }
         resolve(data);
       });
-      res.on('error', reject);
+      res.on('error', e => {
+        if (logger) {
+          logger.error('form error', e);
+        }
+        reject(e);
+      });
     });
     if (logger) {
       logger.debug('postData3 url, payload', url, payload, Buffer.byteLength(payload));
