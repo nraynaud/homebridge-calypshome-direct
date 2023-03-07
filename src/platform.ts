@@ -121,6 +121,9 @@ export async function postData(url, payload = '', logger?: Logger) {
         }
         reject(e);
       } else {
+        if (logger) {
+          logger.warn('req.end()');
+        }
         req.end();
       }
     });
