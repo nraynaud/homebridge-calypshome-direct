@@ -1,4 +1,4 @@
-import {API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, Service, Characteristic} from 'homebridge';
+import {API, Characteristic, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, Service} from 'homebridge';
 
 import {PLATFORM_NAME, PLUGIN_NAME} from './settings';
 import {ShutterAccessory} from './platformAccessory';
@@ -113,6 +113,14 @@ export async function postData(url, payload = '', logger?: Logger) {
   });
 }
 
-async function getObjects(url): Promise<[ProfaluxObject]> {
-  return JSON.parse((await postData(new URL(url), ''))).objects;
+async function getObjects(url, logger?: Logger): Promise<[ProfaluxObject]> {
+
+  try {
+    return JSON.parse(await postData(new URL(url), '')).objects;
+  } catch (e) {
+    if (logger) {
+      logger.error('getObjects error', e);
+    }
+    throw e;
+  }
 }
