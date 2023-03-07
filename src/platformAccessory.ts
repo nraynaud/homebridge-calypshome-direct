@@ -38,7 +38,6 @@ export class ShutterAccessory {
   }
 
   async sendCommand(url, objectId, command, logger, args?:Record<string, string>) {
-    logger.info('sending', command, args);
     const argFragment = args ? 'args=' + encodeURIComponent(JSON.stringify(args)) + '&' : '';
     const payload = `action=${command}&${argFragment}id=${objectId}`;
     return postData(new URL(`${url}/m?a=command`), payload);
