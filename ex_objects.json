@@ -1,0 +1,1103 @@
+[
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1/",
+    "name": "Ch1 porte",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "Ch1 porte"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "down"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": ""
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:09 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1/",
+    "name": "Cuisine",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "Cuisine"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "down"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": ""
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:13 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1/",
+    "name": "Salon loggia",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "Salon loggia"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "down"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": ""
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:35 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1/",
+    "name": "Salon fenêtre",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "Salon fenêtre"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "down"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": ""
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:08 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/self",
+    "eventId": "event/io/ezsp/dev-0/self/",
+    "name": "dev-0/self",
+    "connected": true,
+    "img": "zigbee.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "EZSP",
+    "actions_infos": {
+      "SCAN": {
+        "importance": "0",
+        "args": false
+      },
+      "JOIN": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "firmware",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "5.7.2.0-444"
+      },
+      {
+        "name": "config_IEEEAddr",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "00-1E-5E-09-02-6F-C7-8C"
+      },
+      {
+        "name": "config_channel",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "11"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "config_ext_pan_id",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "0000000044560222"
+      },
+      {
+        "name": "config_pan_id",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "5644"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "dev-0/self"
+      },
+      {
+        "name": "config_power_tx",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "The shutter \"(null)\" did not execute your command."
+      },
+      {
+        "name": "config_power_mode",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "0000"
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:53:49 2023\n",
+        "value": "0|SCAN|network|device=dev-0/self|action=scan\n0|JOIN|network|device=dev-0/self|action=join|?ext_pan_id=TEXT|?tx_power=INT,1,9"
+      }
+    ],
+    "categories": [],
+    "statusImages": {},
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "SCAN",
+      "JOIN"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1/",
+    "name": "Ch2 porte",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "Ch2 porte"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "middle"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "The shutter \"Ch2 porte\" did not execute your command."
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1/",
+    "name": "Salon porte",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "Salon porte"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "middle"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "100"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "The shutter \"Salon porte\" did not execute your command."
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:38 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1/",
+    "name": "Ch1 fenêtre",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "Ch1 fenêtre"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "middle"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "The shutter \"Ch1 fenêtre\" did not execute your command."
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:36 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1/",
+    "name": "Couloir",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "Couloir"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "down"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": ""
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:11 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1",
+    "eventId": "event/io/ezsp/dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1/",
+    "name": "Ch2 Fenêtre",
+    "connected": true,
+    "img": "shutterObject.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Rolling_Shutter",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "Ch2 Fenêtre"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "status",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "down"
+      },
+      {
+        "name": "level",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "0"
+      },
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1"
+      },
+      {
+        "name": "manufacturer_name",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "Profalux"
+      },
+      {
+        "name": "alert_message",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": ""
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "0|OPEN|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1|value=up\n0|CLOSE|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1|action=down\n0|STOP|action|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1|action=stop\n0|LEVEL|set_level|device=dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1|!level=INT,0,100"
+      },
+      {
+        "name": "product_name",
+        "time": "Tue Mar  7 01:54:39 2023\n",
+        "value": "-"
+      }
+    ],
+    "categories": [],
+    "statusImages": {
+      "status": {
+        "middle": "shutterObject_middle.svg",
+        "down": "shutterObject_down.svg",
+        "up": "shutterObject_up.svg"
+      }
+    },
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  },
+  {
+    "id": "atm_io_ezsp::dev-0/Group-F0",
+    "eventId": "event/io/ezsp/dev-0/Group-F0/",
+    "name": "All equipments",
+    "connected": true,
+    "img": "composite.svg",
+    "gw": "L24XZB2GTC6ALTMLIRN3LT3R",
+    "type": "Composite",
+    "actions_infos": {
+      "OPEN": {
+        "importance": "0",
+        "args": false
+      },
+      "STOP": {
+        "importance": "0",
+        "args": false
+      },
+      "CLOSE": {
+        "importance": "0",
+        "args": false
+      },
+      "LEVEL": {
+        "importance": "0",
+        "args": true
+      }
+    },
+    "gw_id": "",
+    "status": [
+      {
+        "name": "object_present",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "__user_name",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "All equipments"
+      },
+      {
+        "name": "object_actions",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "0|OPEN|action|device=dev-0/Group-F0|value=up\n0|CLOSE|action|device=dev-0/Group-F0|action=down\n0|STOP|action|device=dev-0/Group-F0|action=stop\n0|LEVEL|set_level|device=dev-0/Group-F0|!level=INT,0,100"
+      },
+      {
+        "name": "object_owner",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "atm_io_ezsp"
+      },
+      {
+        "name": "object_id",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "dev-0/Group-F0"
+      },
+      {
+        "name": "present",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "1"
+      },
+      {
+        "name": "object_ids",
+        "time": "Tue Mar  7 01:54:41 2023\n",
+        "value": "[\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-23:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2D:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-25:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2F:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-29:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-33:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-2B:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-31:cluster-closure:endpoint-in_1\",\"atm_io_ezsp::dev-0/IEEEAddr-20-91-8A-00-00-13-0E-27:cluster-closure:endpoint-in_1\"]"
+      }
+    ],
+    "categories": [],
+    "statusImages": {},
+    "room": {
+      "name": "Home",
+      "id": 1
+    },
+    "actions": [
+      "OPEN",
+      "CLOSE",
+      "STOP",
+      "LEVEL"
+    ]
+  }
+]

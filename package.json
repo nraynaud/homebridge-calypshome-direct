@@ -1,16 +1,16 @@
 {
   "private": true,
-  "displayName": "Plugin Name",
-  "name": "homebridge-plugin-name",
+  "displayName": "Profalux Calyps'home devices",
+  "name": "homebridge-calypshome-direct",
   "version": "1.0.0",
-  "description": "A short description about what your plugin does.",
+  "description": "A Profalux Calyps'home plugin that talk directly to the box instead of the cloud website.",
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+    "url": "https://github.com/nraynaud/homebridge-calypshome-direct"
   },
   "bugs": {
-    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+    "url": "https://github.com/nraynaud/homebridge-calypshome-direct/issues"
   },
   "engines": {
     "node": ">=14.18.1",
@@ -26,16 +26,19 @@
   "keywords": [
     "homebridge-plugin"
   ],
-  "dependencies": {},
   "devDependencies": {
     "@types/node": "^16.10.9",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.0.1",
-    "homebridge": "^1.3.5",
+    "homebridge": "^1.6.0",
+    "homebridge-config-ui-x": "^4.49.0",
     "nodemon": "^2.0.20",
     "rimraf": "^3.0.2",
     "ts-node": "^10.3.0",
     "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "@types/node-fetch": "^2.6.2"
   }
 }

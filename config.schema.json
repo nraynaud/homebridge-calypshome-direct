@@ -1,15 +1,15 @@
 {
-  "pluginAlias": "ExampleHomebridgePlugin",
+  "pluginAlias": "CalypshomeDirect",
   "pluginType": "platform",
   "singular": true,
   "schema": {
     "type": "object",
     "properties": {
-      "name": {
-        "title": "Name",
+      "url": {
+        "title": "Box URL",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": "http://192.168.1.3/"
       }
     }
   }
