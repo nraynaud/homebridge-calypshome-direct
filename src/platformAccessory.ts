@@ -38,7 +38,7 @@ export class ShutterAccessory {
     return this.platform.Characteristic.PositionState.STOPPED;
   }
 
-  async sendCommand(url, objectId, command, logger, args: any = null) {
+  async sendCommand(url, objectId, command, logger, args?:Record<string, string>) {
     logger.info('sending', command, args);
     return new Promise((resolve, reject) => {
       const argFragment = args ? 'args=' + encodeURIComponent(JSON.stringify(args)) + '&' : '';
