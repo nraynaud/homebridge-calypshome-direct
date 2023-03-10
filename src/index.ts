@@ -6,12 +6,17 @@ import {client as WebSocketClient} from 'websocket';
 
 const PLATFORM_NAME = 'CalypshomeDirect';
 const PLUGIN_NAME = 'homebridge-calypshome-direct';
-
 const START_TIMESTAMP = Math.round(+new Date() / 1000);
 
 /**
  * This is a direct connection Profalux CalypsHome plugin.
  * It connects to the webserver embedded in the box through the local network.
+ *
+ * Notes:
+ * - TargetPosition is unreliable because we don't receive it from the remotes, so we do our best around it.
+ * - Calling the box http server too much crashes the box, so we prefer the Websocket.
+ * - We receive events about once every 10s on the websocket, including the "level" of a shutter if it's moving or if it has moved since
+ * last time.
  */
 class CalypshomeDirect implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
@@ -52,8 +57,19 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
   configureAccessory(accessory: PlatformAccessory) {
     const wcService = accessory.getService(this.WindowCovering)
       || accessory.addService(this.WindowCovering);
-    wcService.getCharacteristic(this.Characteristic.HoldPosition).onSet(async val => {
-      val && await sendCommand(this.serverURL, accessory.context.obj.id, 'STOP', this.logger);
+    wcService.getCharacteristic(this.Characteristic.HoldPosition).onSet(async () => {
+      await sendCommand(this.serverURL, accessory.context.obj.id, 'STOP', this.logger);
+    });
+    wcService.getCharacteristic(this.Characteristic.Identify).onSet(async () => {
+      const delay = async ms => await new Promise(resolve => setTimeout(resolve, ms));
+      try {
+        await sendCommand(this.serverURL, accessory.context.obj.id, 'OPEN', this.logger);
+        await delay(1000);
+        await sendCommand(this.serverURL, accessory.context.obj.id, 'CLOSE', this.logger);
+        await delay(1000);
+      } finally {
+        await sendCommand(this.serverURL, accessory.context.obj.id, 'STOP', this.logger);
+      }
     });
     wcService.getCharacteristic(this.Characteristic.TargetPosition).onSet(async newLevel => {
       const previousLevel = Number(wcService.getCharacteristic(this.Characteristic.CurrentPosition).value!);
@@ -69,7 +85,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
   async refreshDevices() {
     const request = async () => {
       try {
-        for (const obj of await getShutters(this.serverURL)) {
+        for (const obj of await getShutters(this.serverURL, this.logger)) {
           let accessory = this.accessoriesPerEventId[obj.eventId];
           if (!accessory) {
             accessory = new this.api.platformAccessory(obj.name, this.api.hap.uuid.generate(obj.id), Categories.WINDOW_COVERING);
@@ -123,8 +139,8 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
           const wcService = acc.getService(this.WindowCovering)!;
           const previousLevel = Number(wcService.getCharacteristic(this.Characteristic.CurrentPosition).value!);
           const newLevel = Number(splitMessage[7]);
-          this.updatePositionState(acc, previousLevel, newLevel, newLevel);
           wcService.updateCharacteristic(this.Characteristic.CurrentPosition, newLevel);
+          this.updatePositionState(acc, previousLevel, newLevel, newLevel);
         }
       });
       connection.sendUTF('p1 1 _web / login');
@@ -140,8 +156,6 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
       || increasing && currentActualPosition === 100
       || !increasing && currentActualPosition === 0) {
       newState = this.Characteristic.PositionState.STOPPED;
-      // we know we are stopped, but the move might have been triggered by a remote, in which case we didn't know the target position.
-      acc.getService(this.WindowCovering)!.updateCharacteristic(this.Characteristic.TargetPosition, currentActualPosition);
     } else {
       newState = increasing ? this.Characteristic.PositionState.INCREASING : this.Characteristic.PositionState.DECREASING;
     }
@@ -155,7 +169,11 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
     const stopped = this.Characteristic.PositionState.STOPPED;
     if (newState !== stopped) {
       //in a few seconds come back and clear the moving state if not cancelled before.
-      acc.context.stateTimeout = setTimeout(() => this.setPositionState(acc, stopped), 11000);
+      acc.context.stateTimeout = setTimeout(() => this.setPositionState(acc, stopped), 15000);
+    } else {
+      const currentLevel = Number(acc.getService(this.WindowCovering)!.getCharacteristic(this.Characteristic.CurrentPosition).value!);
+      // we know we are stopped, but the move might have been triggered by a remote, in which case we didn't know the target position.
+      acc.getService(this.WindowCovering)!.updateCharacteristic(this.Characteristic.TargetPosition, currentLevel);
     }
   }
 }
@@ -167,9 +185,15 @@ interface ProfaluxObject {
   eventId: string;
 }
 
-async function getShutters(serverUrl): Promise<ProfaluxObject[]> {
+async function getShutters(serverUrl, logger): Promise<ProfaluxObject[]> {
   const text = await postData(new URL('/m?a=getObjects', serverUrl), {type: 'Rolling_Shutter'});
-  return (await JSON.parse(text).objects).filter(o => o.type === 'Rolling_Shutter');
+  const res = {};
+  const objects = await JSON.parse(text).objects;
+  for (const o of objects) {
+    (res[o.type] || (res[o.type] = [])).push(o);
+    logger.info('o', o.status);
+  }
+  return res['Rolling_Shutter'];
 }
 
 async function sendCommand(rootUrl, objectId, command, logger, args?: Record<string, string>) {
