@@ -60,7 +60,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
     wcService.getCharacteristic(this.Characteristic.HoldPosition).onSet(async () => {
       await sendCommand(this.serverURL, accessory.context.obj.id, 'STOP', this.logger);
     });
-    wcService.getCharacteristic(this.Characteristic.Identify).onSet(async () => {
+    accessory.getService(this.Service.AccessoryInformation)!.getCharacteristic(this.Characteristic.Identify).onSet(async () => {
       const delay = async ms => await new Promise(resolve => setTimeout(resolve, ms));
       try {
         await sendCommand(this.serverURL, accessory.context.obj.id, 'OPEN', this.logger);
