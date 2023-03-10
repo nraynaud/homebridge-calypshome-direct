@@ -55,21 +55,22 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
   }
 
   configureAccessory(accessory: PlatformAccessory) {
+    accessory.getService(this.Service.AccessoryInformation)!.getCharacteristic(this.Characteristic.Identify)
+      .on('set', async () => {
+        const delay = async ms => await new Promise(resolve => setTimeout(resolve, ms));
+        try {
+          await sendCommand(this.serverURL, accessory.context.obj.id, 'OPEN', this.logger);
+          await delay(1000);
+          await sendCommand(this.serverURL, accessory.context.obj.id, 'CLOSE', this.logger);
+          await delay(1000);
+        } finally {
+          await sendCommand(this.serverURL, accessory.context.obj.id, 'STOP', this.logger);
+        }
+      });
     const wcService = accessory.getService(this.WindowCovering)
       || accessory.addService(this.WindowCovering);
-    wcService.getCharacteristic(this.Characteristic.HoldPosition).onSet(async () => {
+    wcService.getCharacteristic(this.Characteristic.HoldPosition).on('set', async () => {
       await sendCommand(this.serverURL, accessory.context.obj.id, 'STOP', this.logger);
-    });
-    accessory.getService(this.Service.AccessoryInformation)!.getCharacteristic(this.Characteristic.Identify).onSet(async () => {
-      const delay = async ms => await new Promise(resolve => setTimeout(resolve, ms));
-      try {
-        await sendCommand(this.serverURL, accessory.context.obj.id, 'OPEN', this.logger);
-        await delay(1000);
-        await sendCommand(this.serverURL, accessory.context.obj.id, 'CLOSE', this.logger);
-        await delay(1000);
-      } finally {
-        await sendCommand(this.serverURL, accessory.context.obj.id, 'STOP', this.logger);
-      }
     });
     wcService.getCharacteristic(this.Characteristic.TargetPosition).onSet(async newLevel => {
       const previousLevel = Number(wcService.getCharacteristic(this.Characteristic.CurrentPosition).value!);
