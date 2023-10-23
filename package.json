@@ -1,7 +1,7 @@
 {
   "displayName": "Profalux Calyps'home devices",
   "name": "homebridge-calypshome-direct",
-  "version": "1.1.4
+  "version": "1.1.4",
   "description": "A Profalux Calyps'home plugin that talk directly to the box instead of the cloud website.",
   "license": "Apache-2.0",
   "repository": {
