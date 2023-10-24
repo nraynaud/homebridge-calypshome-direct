@@ -89,6 +89,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
           let accessory = this.accessoriesPerEventId[obj.eventId];
           if (!accessory) {
             accessory = new this.api.platformAccessory(obj.name, this.api.hap.uuid.generate(obj.id), Categories.WINDOW_COVERING);
+            accessory.context.obj = obj;
             this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
             this.configureAccessory(accessory);
           }
