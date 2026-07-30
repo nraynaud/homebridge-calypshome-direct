@@ -26,10 +26,10 @@
     "homebridge-plugin"
   ],
   "devDependencies": {
-    "@types/node": "^16.10.9",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
-    "@typescript-eslint/parser": "^5.0.0",
-    "eslint": "^8.0.1",
+    "@types/node": "^26.1.2",
+    "@typescript-eslint/eslint-plugin": "^8.65.0",
+    "@typescript-eslint/parser": "^8.65.0",
+    "eslint": "^10.8.0",
     "homebridge": "^2.2.1",
     "homebridge-config-ui-x": "^5.27.0",
     "nodemon": "^3.1.14",
