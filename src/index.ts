@@ -189,7 +189,7 @@ interface ProfaluxObject {
 }
 
 async function getShutters(serverUrl, logger): Promise<ProfaluxObject[]> {
-  const text = await postData(new URL('/m?a=getObjects', serverUrl), {type: 'Rolling_Shutter'});
+  const text = await postData(new URL('/m?a=getObjects', serverUrl), {});
   const res = {};
   const objects = await JSON.parse(text).objects;
   for (const o of objects) {
