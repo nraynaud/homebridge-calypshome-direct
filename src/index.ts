@@ -1,12 +1,44 @@
-import {API, Categories, Characteristic, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, Service} from 'homebridge';
+import { API, Categories, Characteristic, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, Service } from 'homebridge';
 import http from 'http';
 import fetch from 'node-fetch';
-import {backOff} from 'exponential-backoff';
-import {client as WebSocketClient} from 'websocket';
+import { backOff } from 'exponential-backoff';
+import { client as WebSocketClient } from 'websocket';
 
 const PLATFORM_NAME = 'CalypshomeDirect';
 const PLUGIN_NAME = 'homebridge-calypshome-direct';
 const START_TIMESTAMP = Math.round(+new Date() / 1000);
+
+/** weirdly, I get an ECONNRESET error if I don't make this agent keepalive */
+const AGENT = new http.Agent({ keepAlive: true });
+
+/** the calyps'home web server only accepts POST requests for some reason
+ *
+ * @param url
+ * @param payload
+ */
+async function postData(url, payload: { [key: string]: string } = {}) {
+  const response = await fetch(url, { method: 'POST', body: new URLSearchParams(Object.entries(payload)), agent: AGENT });
+  return await response.text();
+}
+
+async function sendCommand(rootUrl, objectId, command, logger, args?: Record<string, string>) {
+  const payload = { action: command, id: objectId };
+  if (args) {
+    payload.args = JSON.stringify(args);
+  }
+  return await postData(new URL('/m?a=command', rootUrl), payload);
+}
+
+async function getShutters(serverUrl, logger): Promise<ProfaluxObject[]> {
+  const text = await postData(new URL('/m?a=getObjects', serverUrl), {});
+  const res = {};
+  const objects = await JSON.parse(text).objects;
+  for (const o of objects) {
+    (res[o.type] || (res[o.type] = [])).push(o);
+    logger.info('o', o.status);
+  }
+  return res.Rolling_Shutter;
+}
 
 /**
  * This is a direct connection Profalux CalypsHome plugin.
@@ -75,7 +107,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
     wcService.getCharacteristic(this.Characteristic.TargetPosition).onSet(async newLevel => {
       const previousLevel = Number(wcService.getCharacteristic(this.Characteristic.CurrentPosition).value!);
       this.updatePositionState(accessory, previousLevel, previousLevel, Number(newLevel));
-      await sendCommand(this.serverURL, accessory.context.obj.id, 'LEVEL', this.logger, {level: String(newLevel)});
+      await sendCommand(this.serverURL, accessory.context.obj.id, 'LEVEL', this.logger, { level: String(newLevel) });
     });
     this.accessoriesPerEventId[accessory.context.obj.eventId] = accessory;
   }
@@ -103,7 +135,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
         throw e;
       }
     };
-    await backOff(request, {jitter: 'full', maxDelay: 3 * 60 * 1000, numOfAttempts: 10, startingDelay: 1000});
+    await backOff(request, { jitter: 'full', maxDelay: 3 * 60 * 1000, numOfAttempts: 10, startingDelay: 1000 });
   }
 
   /**
@@ -188,33 +220,6 @@ interface ProfaluxObject {
   eventId: string;
 }
 
-async function getShutters(serverUrl, logger): Promise<ProfaluxObject[]> {
-  const text = await postData(new URL('/m?a=getObjects', serverUrl), {});
-  const res = {};
-  const objects = await JSON.parse(text).objects;
-  for (const o of objects) {
-    (res[o.type] || (res[o.type] = [])).push(o);
-    logger.info('o', o.status);
-  }
-  return res['Rolling_Shutter'];
-}
-
-async function sendCommand(rootUrl, objectId, command, logger, args?: Record<string, string>) {
-  const payload = {action: command, id: objectId};
-  if (args) {
-    payload['args'] = JSON.stringify(args);
-  }
-  return await postData(new URL('/m?a=command', rootUrl), payload);
-}
-
-// weirdly I get an ECONNRESET error if I don't make this agent keepalive
-const AGENT = new http.Agent({keepAlive: true});
-
-// the calyps'home web server only accepts POST requests for some reason
-async function postData(url, payload: { [key: string]: string } = {}) {
-  const response = await fetch(url, {method: 'POST', body: new URLSearchParams(Object.entries(payload)), agent: AGENT});
-  return await response.text();
-}
 
 export = (api: API) => {
   api.registerPlatform(PLATFORM_NAME, CalypshomeDirect);
