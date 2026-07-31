@@ -132,6 +132,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
       await sendCommand(this.serverURL, accessory.context.obj.id, 'LEVEL', this.logger, { level: String(newLevel) });
     });
     this.accessoriesPerEventId[accessory.context.obj.eventId] = accessory;
+    this.logger.debug('configureAccessory()', { displayName: accessory.displayName, eventId: accessory.context.obj.eventId });
   }
 
   /**
@@ -199,6 +200,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
           logger.debug('WebSocket decoded message', splitMessage);
           const eventId = splitMessage[6];
           if (eventId.endsWith('/level')) {
+            logger.debug('WebSocket got level message');
             const acc = this.accessoriesPerEventId[eventId.replace(/level$/, '')];
             const wcService = acc.getService(this.WindowCovering)!;
             const previousLevel = Number(wcService.getCharacteristic(this.Characteristic.CurrentPosition).value!);
