@@ -50,7 +50,7 @@ async function getShutters(serverUrl: string | URL | undefined, logger: Logger):
   const objects = await JSON.parse(text).objects;
   for (const o of objects) {
     (res[o.type] || (res[o.type] = [])).push(o);
-    logger.info('obj', o.status);
+    logger.info('obj', o);
   }
   return res.Rolling_Shutter;
 }
@@ -143,11 +143,13 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
         for (const obj of await getShutters(this.serverURL, this.logger)) {
           let accessory = this.accessoriesPerEventId[obj.eventId];
           if (!accessory) {
+            this.logger.debug(`registering new accessory "${obj.name}" ${obj.eventId}`);
             accessory = new this.api.platformAccessory(obj.name, this.api.hap.uuid.generate(obj.id), Categories.WINDOW_COVERING);
             accessory.context.obj = obj;
             this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
             this.configureAccessory(accessory);
           }
+          this.logger.debug(`recovered existing accessory "${obj.name}" ${obj.eventId}`);
           accessory.context.obj = obj;
           const parsedStatus = Object.fromEntries(accessory.context.obj.status.map((o: {
             name: string;
@@ -164,7 +166,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
   }
 
   /**
-   * conects the websocket and try to reconnect on error.
+   * connects the websocket and try to reconnect on error.
    */
   connectWebSocket(logger: Logger) {
     const wsURL = new URL(this.serverURL);
@@ -194,6 +196,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
         if (message.utf8Data) {
           const splitMessage = message.utf8Data.split(' ').map((frag: string) => frag[0] === '@' ?
             Buffer.from(frag.substring(1), 'base64').toString() : frag);
+          logger.debug('WebSocket decoded message', splitMessage);
           const eventId = splitMessage[6];
           if (eventId.endsWith('/level')) {
             const acc = this.accessoriesPerEventId[eventId.replace(/level$/, '')];
