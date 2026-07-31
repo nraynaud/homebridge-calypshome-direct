@@ -17,6 +17,8 @@ const PLATFORM_NAME = 'CalypshomeDirect';
 const PLUGIN_NAME = 'homebridge-calypshome-direct';
 const START_TIMESTAMP = Math.round(+new Date() / 1000);
 
+const IGNORED_WS_MESSAGES = new Set(['uptime', 'cpu_idle', 'gw_cpu', 'gw_vm_size', 'gw_vm_rss', 'disk_free', 'memory_free', 'load_5', 'system_uptime']);
+
 /** weirdly, I get an ECONNRESET error if I don't make this agent keepalive */
 const AGENT = new http.Agent({ keepAlive: true });
 
@@ -99,8 +101,6 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
       accessory.getService(this.Service.AccessoryInformation)!
         .updateCharacteristic(this.Characteristic.Manufacturer, parsedStatus.manufacturer_name);
     }
-    accessory.getService(this.Service.AccessoryInformation)!
-      .updateCharacteristic(this.Characteristic.ConfiguredName, accessory.context.obj.name);
     accessory.getService(this.WindowCovering)!
       .updateCharacteristic(this.Characteristic.Name, accessory.context.obj.name)
       .updateCharacteristic(this.Characteristic.CurrentPosition, Number(parsedStatus.level))
@@ -109,6 +109,11 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
   }
 
   configureAccessory(accessory: PlatformAccessory) {
+    accessory.getService(this.Service.AccessoryInformation)!
+      .updateCharacteristic(this.Characteristic.ConfiguredName, accessory.context.obj.name);
+    accessory.getService(this.WindowCovering)!
+      .updateCharacteristic(this.Characteristic.Name, accessory.context.obj.name);
+
     accessory.getService(this.Service.AccessoryInformation)!.getCharacteristic(this.Characteristic.Identify)
       .on('set', async () => {
         const delay = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms));
@@ -132,7 +137,11 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
       await sendCommand(this.serverURL, accessory.context.obj.id, 'LEVEL', this.logger, { level: String(newLevel) });
     });
     this.accessoriesPerEventId[accessory.context.obj.eventId] = accessory;
-    this.logger.debug('configureAccessory()', { displayName: accessory.displayName, eventId: accessory.context.obj.eventId });
+    this.logger.debug('configureAccessory()', {
+      displayName: accessory.displayName,
+      eventId: accessory.context.obj.eventId,
+      context: accessory.context,
+    });
   }
 
   /**
@@ -197,8 +206,12 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
         if (message.utf8Data) {
           const splitMessage = message.utf8Data.split(' ').map((frag: string) => frag[0] === '@' ?
             Buffer.from(frag.substring(1), 'base64').toString() : frag);
-          logger.debug('WebSocket decoded message', splitMessage);
           const eventId = splitMessage[6];
+          const eventType = eventId.split('/').at(-1);
+          if (IGNORED_WS_MESSAGES.has(<string>eventType)) {
+            return;
+          }
+          logger.debug('WebSocket decoded message', splitMessage);
           if (eventId.endsWith('/level')) {
             logger.debug('WebSocket got level message');
             const acc = this.accessoriesPerEventId[eventId.replace(/level$/, '')];
