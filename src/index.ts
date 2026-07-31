@@ -1,6 +1,15 @@
-import { API, Categories, Characteristic, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, Service } from 'homebridge';
+import {
+  API,
+  Categories,
+  Characteristic,
+  DynamicPlatformPlugin,
+  Logger,
+  PlatformAccessory,
+  PlatformConfig,
+  Service,
+} from 'homebridge';
 import http from 'http';
-import fetch from 'node-fetch';
+import fetch, { RequestInit } from 'node-fetch';
 import { backOff } from 'exponential-backoff';
 import { client as WebSocketClient } from 'websocket';
 
@@ -16,26 +25,32 @@ const AGENT = new http.Agent({ keepAlive: true });
  * @param url
  * @param payload
  */
-async function postData(url, payload: { [key: string]: string } = {}) {
-  const response = await fetch(url, { method: 'POST', body: new URLSearchParams(Object.entries(payload)), agent: AGENT });
+async function postData(url: URL, payload: { [key: string]: string } | undefined = undefined) {
+  const init: RequestInit = { method: 'POST', agent: AGENT };
+  if (payload) {
+    init.body = new URLSearchParams(Object.entries(payload));
+  }
+  const response = await fetch(url, init);
   return await response.text();
 }
 
-async function sendCommand(rootUrl, objectId, command, logger, args?: Record<string, string>) {
-  const payload = { action: command, id: objectId };
+async function sendCommand(rootUrl: string | URL | undefined, objectId: string, command: string, logger: Logger, args?: Record<string, string>) {
+  const payload: { [key: string]: string; } = {
+    action: command, id: objectId,
+  };
   if (args) {
     payload.args = JSON.stringify(args);
   }
   return await postData(new URL('/m?a=command', rootUrl), payload);
 }
 
-async function getShutters(serverUrl, logger): Promise<ProfaluxObject[]> {
+async function getShutters(serverUrl: string | URL | undefined, logger: Logger): Promise<ProfaluxObject[]> {
   const text = await postData(new URL('/m?a=getObjects', serverUrl), {});
-  const res = {};
+  const res: { [key: string]: ProfaluxObject[] } = {};
   const objects = await JSON.parse(text).objects;
   for (const o of objects) {
     (res[o.type] || (res[o.type] = [])).push(o);
-    logger.info('o', o.status);
+    logger.info('obj', o.status);
   }
   return res.Rolling_Shutter;
 }
@@ -51,9 +66,9 @@ async function getShutters(serverUrl, logger): Promise<ProfaluxObject[]> {
  * last time.
  */
 class CalypshomeDirect implements DynamicPlatformPlugin {
-  public readonly Service: typeof Service = this.api.hap.Service;
-  public readonly Characteristic: typeof Characteristic = this.api.hap.Characteristic;
-  private WindowCovering = this.Service.WindowCovering;
+  public readonly Service: typeof Service;
+  public readonly Characteristic: typeof Characteristic;
+  private readonly WindowCovering: typeof Service.WindowCovering;
 
   public readonly accessoriesPerEventId: { [eventId: string]: PlatformAccessory } = {};
   public readonly serverURL: URL;
@@ -63,21 +78,28 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
     public readonly config: PlatformConfig,
     public readonly api: API,
   ) {
+    this.api = api;
     this.serverURL = new URL(config.url);
     this.serverURL.pathname = '';
     this.api.on('didFinishLaunching', async () => {
       await this.refreshDevices();
       this.connectWebSocket(logger);
     });
+    this.Service = this.api.hap.Service;
+    this.Characteristic = this.api.hap.Characteristic;
+    this.WindowCovering = this.Service.WindowCovering;
   }
 
   /**
    * update the status displayed by homekit from the status sent by calyps'home
    */
-  updateCoverState(accessory: PlatformAccessory, parsedStatus) {
+  updateCoverState(accessory: PlatformAccessory, parsedStatus: { [x: string]: string }) {
     // do not call any "set" function here, we don't want to trigger any real world effect
+    if (parsedStatus.manufacturer_name) {
+      accessory.getService(this.Service.AccessoryInformation)!
+        .updateCharacteristic(this.Characteristic.Manufacturer, parsedStatus.manufacturer_name);
+    }
     accessory.getService(this.Service.AccessoryInformation)!
-      .updateCharacteristic(this.Characteristic.Manufacturer, parsedStatus.manufacturer_name)
       .updateCharacteristic(this.Characteristic.ConfiguredName, accessory.context.obj.name);
     accessory.getService(this.WindowCovering)!
       .updateCharacteristic(this.Characteristic.Name, accessory.context.obj.name)
@@ -89,7 +111,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
   configureAccessory(accessory: PlatformAccessory) {
     accessory.getService(this.Service.AccessoryInformation)!.getCharacteristic(this.Characteristic.Identify)
       .on('set', async () => {
-        const delay = async ms => await new Promise(resolve => setTimeout(resolve, ms));
+        const delay = async (ms: number) => await new Promise(resolve => setTimeout(resolve, ms));
         try {
           await sendCommand(this.serverURL, accessory.context.obj.id, 'OPEN', this.logger);
           await delay(1000);
@@ -127,7 +149,10 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
             this.configureAccessory(accessory);
           }
           accessory.context.obj = obj;
-          const parsedStatus = Object.fromEntries(accessory.context.obj.status.map(o => [o.name, o.value]));
+          const parsedStatus = Object.fromEntries(accessory.context.obj.status.map((o: {
+            name: string;
+            value: string;
+          }) => [o.name, o.value]));
           this.updateCoverState(accessory, parsedStatus);
         }
       } catch (e) {
@@ -141,7 +166,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
   /**
    * conects the websocket and try to reconnect on error.
    */
-  connectWebSocket(logger) {
+  connectWebSocket(logger: Logger) {
     const wsURL = new URL(this.serverURL);
     wsURL.protocol = 'ws:';
     const client = new WebSocketClient();
@@ -166,24 +191,26 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
       });
       connection.on('message', (message) => {
         // fragments are separated by spaces, fragments starting with @ are base64 encoded
-        const splitMessage = message.utf8Data.split(' ').map(frag => frag[0] === '@' ?
-          Buffer.from(frag.substring(1), 'base64').toString() : frag);
-        const eventId = splitMessage[6];
-        if (eventId.endsWith('/level')) {
-          const acc = this.accessoriesPerEventId[eventId.replace(/level$/, '')];
-          const wcService = acc.getService(this.WindowCovering)!;
-          const previousLevel = Number(wcService.getCharacteristic(this.Characteristic.CurrentPosition).value!);
-          const newLevel = Number(splitMessage[7]);
-          wcService.updateCharacteristic(this.Characteristic.CurrentPosition, newLevel);
-          this.updatePositionState(acc, previousLevel, newLevel, newLevel);
+        if (message.utf8Data) {
+          const splitMessage = message.utf8Data.split(' ').map((frag: string) => frag[0] === '@' ?
+            Buffer.from(frag.substring(1), 'base64').toString() : frag);
+          const eventId = splitMessage[6];
+          if (eventId.endsWith('/level')) {
+            const acc = this.accessoriesPerEventId[eventId.replace(/level$/, '')];
+            const wcService = acc.getService(this.WindowCovering)!;
+            const previousLevel = Number(wcService.getCharacteristic(this.Characteristic.CurrentPosition).value!);
+            const newLevel = Number(splitMessage[7]);
+            wcService.updateCharacteristic(this.Characteristic.CurrentPosition, newLevel);
+            this.updatePositionState(acc, previousLevel, newLevel, newLevel);
+          }
         }
       });
       connection.sendUTF('p1 1 _web / login');
     });
-    client.connect(wsURL, 'lws-mirror-protocol');
+    client.connect(wsURL.toString(), 'lws-mirror-protocol');
   }
 
-  updatePositionState(acc, previousPosition: number, currentActualPosition: number, nextPosition: number) {
+  updatePositionState(acc: PlatformAccessory, previousPosition: number, currentActualPosition: number, nextPosition: number) {
     // this function can be called before or after a move, so currentActualPosition is either previousPosition or nextPosition.
     const increasing = previousPosition < nextPosition;
     let newState;
@@ -197,7 +224,7 @@ class CalypshomeDirect implements DynamicPlatformPlugin {
     this.setPositionState(acc, newState);
   }
 
-  setPositionState(acc, newState) {
+  setPositionState(acc: PlatformAccessory, newState: number) {
     acc.getService(this.WindowCovering)!.updateCharacteristic(this.Characteristic.PositionState, newState);
     clearTimeout(acc.context.stateTimeout); // works with undefined
     acc.context.stateTimeout = undefined;
